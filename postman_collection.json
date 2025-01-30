@@ -1,0 +1,261 @@
+{
+  "info": {
+    "name": "Money Transfer API",
+    "description": "API collection for Money Transfer Application",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Sign Up",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/auth/signup",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "signup"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": {
+                "first_name": "John",
+                "last_name": "Doe",
+                "email": "john.doe@example.com",
+                "password": "password123"
+              }
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "login"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": {
+                "email": "john.doe@example.com",
+                "password": "password123"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Bank Accounts",
+      "item": [
+        {
+          "name": "Generate Bank Account",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/bank-accounts/generate",
+              "host": ["{{base_url}}"],
+              "path": ["api", "bank-accounts", "generate"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": {
+                "bvn": "12345678901"
+              }
+            }
+          }
+        },
+        {
+          "name": "Get Banks List",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/bank-accounts/banks",
+              "host": ["{{base_url}}"],
+              "path": ["api", "bank-accounts", "banks"]
+            }
+          }
+        },
+        {
+          "name": "Verify Bank Account",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/bank-accounts/verify",
+              "host": ["{{base_url}}"],
+              "path": ["api", "bank-accounts", "verify"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": {
+                "account_number": "0123456789",
+                "bank_code": "057"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Transfers",
+      "item": [
+        {
+          "name": "Initiate Transfer",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/transfers",
+              "host": ["{{base_url}}"],
+              "path": ["api", "transfers"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": {
+                "amount": 100.00,
+                "bank_code": "057",
+                "account_number": "0123456789",
+                "description": "Test transfer"
+              }
+            }
+          }
+        },
+        {
+          "name": "Get Transaction History",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/transfers/history?page=1&limit=10&type=transfer",
+              "host": ["{{base_url}}"],
+              "path": ["api", "transfers", "history"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "type",
+                  "value": "transfer"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Webhook",
+      "item": [
+        {
+          "name": "Raven Webhook",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-raven-signature",
+                "value": "{{webhook_signature}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/webhooks/raven",
+              "host": ["{{base_url}}"],
+              "path": ["api", "webhooks", "raven"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": {
+                "event": "transfer.success",
+                "data": {
+                  "reference": "unique-reference-123",
+                  "amount": 100.00,
+                  "account_number": "0123456789",
+                  "bank_code": "057",
+                  "status": "success",
+                  "narration": "Test transfer"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "auth_token",
+      "value": "your_jwt_token_here"
+    },
+    {
+      "key": "webhook_signature",
+      "value": "your_webhook_signature_here"
+    }
+  ]
+} 

@@ -1,0 +1,94 @@
+{
+  "signup": {
+    "request": {
+      "method": "POST",
+      "url": "http://localhost:3000/api/auth/signup",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "first_name": "John",
+        "last_name": "Doe",
+        "email": "john.doe@example.com",
+        "password": "password123"
+      }
+    },
+    "response": {
+      "success": {
+        "status": "success",
+        "data": {
+          "user": {
+            "id": 1,
+            "first_name": "John",
+            "last_name": "Doe",
+            "email": "john.doe@example.com",
+            "bank_account_number": null,
+            "balance": 0.00,
+            "created_at": "2024-01-30T12:00:00.000Z",
+            "updated_at": "2024-01-30T12:00:00.000Z"
+          },
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+        }
+      },
+      "error_email_exists": {
+        "status": "error",
+        "message": "Email already registered"
+      },
+      "error_validation": {
+        "status": "error",
+        "errors": [
+          {
+            "msg": "Please provide a valid email",
+            "param": "email",
+            "location": "body"
+          }
+        ]
+      }
+    }
+  },
+  "login": {
+    "request": {
+      "method": "POST",
+      "url": "http://localhost:3000/api/auth/login",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "email": "john.doe@example.com",
+        "password": "password123"
+      }
+    },
+    "response": {
+      "success": {
+        "status": "success",
+        "data": {
+          "user": {
+            "id": 1,
+            "first_name": "John",
+            "last_name": "Doe",
+            "email": "john.doe@example.com",
+            "bank_account_number": null,
+            "balance": 0.00,
+            "created_at": "2024-01-30T12:00:00.000Z",
+            "updated_at": "2024-01-30T12:00:00.000Z"
+          },
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+        }
+      },
+      "error_invalid_credentials": {
+        "status": "error",
+        "message": "Invalid credentials"
+      },
+      "error_validation": {
+        "status": "error",
+        "errors": [
+          {
+            "msg": "Please provide a valid email",
+            "param": "email",
+            "location": "body"
+          }
+        ]
+      }
+    }
+  }
+} 
